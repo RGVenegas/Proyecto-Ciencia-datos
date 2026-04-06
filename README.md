@@ -12,3 +12,8 @@ Paso 1: Clonar el repositorio en su terminal: git clone https://github.com/RGVen
 Paso 2: Instalar las dependencias requeridas (requiere Python): pip install pandas numpy matplotlib seaborn
 
 Paso 3: Abrir "proyecto semana 3 predictivo.ipynb" (en Jupyter Notebook o VS Code) y ejecutar todas las celdas de forma secuencial.
+
+Integrantes:
+Rodrigo Venegas
+Diego Carmona
+Vicente Bustamante
