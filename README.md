@@ -31,7 +31,7 @@ git clone [https://github.com/RGVenegas/Proyecto-Ciencia-datos.git](https://gith
 pip install pandas numpy matplotlib seaborn scikit-learn
 
 **Paso 3:** Abrir el archivo proyecto semana 3 predictivo.ipynb (utilizando Jupyter Notebook o la extensión de Jupyter en VS Code) y ejecutar todas las celdas de forma secuencial de principio a fin. Gracias al uso de rutas relativas, el código funcionará independientemente del sistema operativo.
-
+```
 
 
 👥 Integrantes
