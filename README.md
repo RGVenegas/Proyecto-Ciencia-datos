@@ -35,6 +35,9 @@ pip install pandas numpy matplotlib seaborn scikit-learn
 
 
 👥 Integrantes
+
 Rodrigo Venegas
+
 Diego Carmona
+
 Vicente Bustamante
