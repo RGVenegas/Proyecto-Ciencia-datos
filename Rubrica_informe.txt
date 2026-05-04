@@ -1,0 +1,117 @@
+I. Introducción
+Presenta el contexto general del problema, su importancia y una visión global del
+proyecto, incluyendo el enfoque utilizado y los resultados esperados.
+II. Problema, Objetivos y KPIs
+Define el problema central del proyecto, establece los objetivos que se buscan lograr y
+los indicadores que permitirán medir el éxito de la solución.
+2.1 Descripción del Problema
+Explica claramente la situación problemática, su contexto y el impacto que genera.
+2.2 Objetivo General
+Define el propósito principal del proyecto de manera clara y concreta.
+2.3 Objetivos Específicos
+Detalla las acciones necesarias para cumplir el objetivo general.
+2.4 KPIs e Indicadores de Éxito
+Define las métricas que permitirán evaluar el desempeño del modelo (ej: Accuracy, F1-
+score, Recall).
+III. Antecedentes y Fuentes
+Incluye información teórica y trabajos previos que sustentan el proyecto, utilizando
+fuentes confiables y actualizadas.
+IV. Requisitos del Proyecto
+Describe las condiciones que debe cumplir la solución propuesta.
+4.1 Requisitos Funcionales
+Define qué debe hacer el sistema o modelo.
+4.2 Requisitos No Funcionales
+Describe características como rendimiento, escalabilidad, interpretabilidad o usabilidad.
+El sistema debe responder rápido, ser fácil de usar, permitir entender los resultados del
+modelo y funcionar bien aunque aumenten los datos.
+V. Dataset
+Presenta y justifica el conjunto de datos utilizado.
+5.1 Descripción del Dataset
+Describe las variables, tipo de datos y estructura general.
+5.2 Fuente de los Datos
+Indica el origen del dataset.
+5.3 Justificación del Dataset
+Explica por qué es adecuado para resolver el problema.
+VI. Metodología
+Explica el enfoque utilizado para desarrollar el proyecto.
+6.1 Enfoque Metodológico
+Describe la metodología aplicada (ej: CRISP-DM).
+6.2 Fases del Proyecto
+Detalla las etapas del proceso (análisis, preparación, modelado, etc.).
+6.3 Planificación
+Describe la organización temporal del proyecto.
+VII. Análisis Exploratorio de Datos (EDA) y Visualización
+Explora y analiza los datos para comprender su estructura y comportamiento.
+7.1 Análisis Descriptivo
+Presenta estadísticas básicas del dataset.
+7.2 Visualizaciones
+Incluye gráficos que permitan identificar patrones y relaciones.
+7.3 Hallazgos e Interpretación
+Explica los principales descubrimientos obtenidos del análisis.
+VIII. Preprocesamiento y Calidad de Datos
+Describe cómo se prepararon los datos para el modelamiento.
+8.1 Limpieza de Datos
+Eliminación de errores, duplicados o inconsistencias.
+8.2 Tratamiento de Valores Nulos
+Manejo de datos faltantes.
+8.3 Transformaciones
+Codificación, normalización u otras transformaciones.
+8.4 Evaluación de Calidad
+Análisis de la calidad final de los datos.
+IX. Comparación de Técnicas
+Evalúa diferentes modelos para seleccionar el mejor.
+9.1 Modelos Evaluados
+Describe los algoritmos utilizados.
+9.2 Resultados Comparativos
+Presenta métricas de cada modelo.
+9.3 Justificación de Selección
+Explica por qué se eligió el modelo final.
+X. Arquitectura del Modelo
+Describe el diseño del modelo seleccionado.
+10.1 Modelo Seleccionado
+Indica el algoritmo final.
+10.2 Parámetros e Hiperparámetros
+Describe configuraciones del modelo.
+10.3 Justificación Técnica
+Explica por qué este modelo es el más adecuado.
+XI. Validación Experimental
+Describe cómo se evaluó el modelo.
+11.1 División de Datos
+Explica el uso de train/test.
+11.2 Cross-Validation
+Describe la validación cruzada.
+11.3 Estrategia de Validación
+Justifica el método de evaluación utilizado.
+XII. Evaluación e Interpretabilidad
+Analiza el desempeño del modelo y su comportamiento.
+12.1 Métricas de Evaluación
+Presenta resultados (Accuracy, F1, etc.).
+12.2 Análisis de Resultados
+Interpreta los resultados obtenidos.
+12.3 Interpretabilidad del Modelo
+Explica cómo el modelo toma decisiones.
+XIII. Sistema y Pipeline
+Describe el flujo completo del sistema.
+13.1 Arquitectura del Sistema
+Explica cómo se integran los componentes.
+13.2 Pipeline del Modelo
+Describe el flujo desde los datos hasta la predicción.
+XIV. Repositorio
+Describe cómo está organizado el proyecto.
+14.1 Estructura del Proyecto
+Organización de carpetas y archivos.
+14.2 Documentación (README)
+Explica el uso del proyecto.
+14.3 Reproducibilidad
+Indica cómo ejecutar el proyecto.
+XV. Mejoras y Limitaciones
+Reflexiona sobre el trabajo realizado.
+15.1 Limitaciones del Proyecto
+Describe restricciones o problemas encontrados.
+15.2 Propuestas de Mejora
+Sugiere mejoras futuras.
+XVI. Conclusiones
+Resume los resultados del proyecto y su impacto, destacando los aprendizajes
+obtenidos.
+XVII. Referencias (APA 7)
+Incluye todas las fuentes utilizadas, correctamente citadas según normativa APA7.
