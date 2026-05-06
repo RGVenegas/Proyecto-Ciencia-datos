@@ -1,0 +1,166 @@
+Sistema predictivo de riesgo crediticio en clientes chilenos mediante Machine Learning 
+Diego Carmona Rodrigo Venegas Vicente Bustamante Ciencia de datos — 03/05/2026 
+Repositorio: Proyecto-Ciencia-datos 
+1. Introducción 
+El riesgo crediticio es uno de los desafíos centrales de las instituciones financieras: aprobar a un cliente que luego incumple genera pérdidas directas y presiona la estabilidad de la cartera. Este proyecto implementa un flujo de ciencia de datos —desde la comprensión de los datos hasta la comparación de modelos y la exportación de un clasificador— para anticipar si un perfil corresponde a alto riesgo crediticio (variable objetivo binaria RiesgoAlto). 
+El enfoque combina análisis exploratorio (EDA), preparación reproducible, entrenamiento de cinco familias de algoritmos supervisados en Python (scikit-learn) y evaluación con métricas acordes a un conjunto desbalanceado. Se busca un equilibrio entre desempeño predictivo, trazabilidad del pipeline y bases para una futura integración. 
+2. Problema, objetivos y KPIs 
+2.1. Descripción del problema 
+La evaluación manual o heurística es lenta, costosa y sensible a sesgos. Un error tipo "falso negativo" (alto riesgo clasificado como bajo) incrementa provisiones e incobrabilidad; un exceso de falsos positivos puede dañar la experiencia del cliente y el volumen de negocio. El problema se formula como clasificación binaria a partir de atributos demográficos, laborales, de endeudamiento y de comportamiento en centrales de riesgo. 
+2.2. Objetivo general 
+Desarrollar y comparar 5 modelos de Machine Learning de clasificación binaria para predecir la probabilidad de que un cliente sea clasificado como de Riesgo Alto (1), seleccionando el algoritmo óptimo basándose en su capacidad de detección y su interpretabilidad matemática. 
+2.3. Objetivos específicos 
+Ejecutar EDA para caracterizar el perfil asociado a morosidad y el desbalance. 
+Validar integridad del conjunto preprocesado (codificación, escalado, ausencia de nulos) y evitar fuga de información entre entrenamiento y prueba. 
+Entrenar en paralelo cinco algoritmos de scikit-learn y compararlos en hold-out. 
+Evaluar el rendimiento con foco en la clase minoritaria (Recall y F1-Score), complementado con la matriz de confusión. 
+Exportar artefactos y rutas relativas para reproducibilidad. 
+2.4. KPIs e indicadores de éxito 
+Con una distribución aproximada de 75 % Riesgo Bajo (0) y 25 % Riesgo Alto (1), la Exactitud puede ser engañosa si se interpreta sola; se prioriza: 
+F1-Score de la clase 1: equilibrio entre Precisión y Recall. 
+Recall de la clase 1: cobertura de morosos reales; métrica alineada con el costo de negocio de "dejar pasar" alto riesgo. 
+Precision de la clase 1: control de falsas alarmas. 
+Matriz de confusión: seguimiento explícito de falsos negativos y falsos positivos. 
+3. Antecedentes y fuentes 
+El credit scoring con aprendizaje supervisado es práctica estándar en la industria y reduce asimetrías de información entre prestamista y prestatario. En contextos regulados, modelos interpretables (p. ej. regresión logística) han sido favorecidos por su auditabilidad: coeficientes y odds ratios facilitan explicar factores que empujan la probabilidad de impago, en línea con la exigencia de transparencia hacia el consumidor y hacia supervisores (p. ej. CMF en Chile) aunque la normativa específica evolucione con el uso de modelos más complejos. 
+El proyecto sigue la estructura CRISP-DM para organizar fases de comprensión, preparación, modelado y evaluación [2, 6]. Sobre fundamentos estadísticos de clasificación y validación véase Hand [3] y James et al. [4]. La implementación utiliza scikit-learn [5]. El conjunto usado es académico o sintético orientado al mercado chileno (CLP, centrales de riesgo a 12/36 meses), útil para ejercitar el pipeline sin afirmar validez poblacional externa. 
+4. Requisitos del proyecto 
+4.1. Requisitos funcionales 
+Ingestar datos tabulares en CSV (crudo en data/raw/). 
+Preprocesar de forma reproducible: imputación contextual de nulos, codificación de categóricas y estandarización StandardScaler. 
+Entrenar y comparar varios clasificadores; seleccionar uno según regla documentada (mayor F1 en test en el código actual) y exportarlo a models/modelo_final.pkl. 
+Emitir predicción binaria 0/1; los modelos lineales permiten, vía predict_proba, umbrales de decisión ajustables al apetito de riesgo. 
+Persistir modelo con joblib y generar dataset_crediticio_procesado.csv. 
+4.2. Requisitos no funcionales 
+Interpretabilidad: reportes, matrices de confusión, coeficientes o importancias según el estimador. 
+Rendimiento razonable en CPU para miles de filas; latencia en milisegundos por registro es plausible una vez vectorizado. 
+Reproducibilidad: random_state=42 en modelos comparados; rutas relativas. Modularidad: separación raw / processed / notebooks / models / src. 
+Escalabilidad futura: arquitectura actual es por archivos y scripts; un despliegue corporativo podría añadir almacenamiento distribuido y jobs de preprocesamiento batch sin cambiar la lógica del modelo exportado. 
+5. Dataset 
+5.1. Descripción del dataset 
+Tras el preprocesamiento, dataset_crediticio_procesado.csv contiene alrededor de 4.266 observaciones y 24 columnas numéricas más la etiqueta entera RiesgoAlto. Las variables incluyen indicadores de vehículo y tarjeta, edad, número de entidades con deuda, saldos y ratios en CLP, variación de endeudamiento, peores calificaciones y reportes en central, ingreso, y dummies derivadas de Sexo, Tipo_Empleo y Ciudad_Chile. Nota: la columna ScoreRiesgo fue excluida del conjunto de features por constituir una transformación directa de la variable objetivo (data leakage); su inclusión producía métricas artificialmente perfectas (F1 = 1,0). 
+5.2. Fuente de los datos 
+Archivo en el repositorio: data/raw/dataset_crediticio_chile-1-1.csv (datos anonimizados o académicos que simulan estructura típica de cartera de consumo en Chile, inicialmente el dataset era peruano y se adaptó a contexto chileno). 
+5.3. Justificación del dataset 
+Combina señales financieras y de buró coherentes con el problema; permite trabajar desbalance, nulos y escalas heterogéneas en un entorno de laboratorio controlado. 
+6. Metodología 
+6.1. Enfoque metodológico 
+CRISP-DM adaptado a un proyecto académico: comprensión del negocio y datos, preparación, modelado, evaluación y despliegue ligero vía exportación del modelo. 
+6.2. Fases del proyecto 
+Comprensión del negocio y datos: KPIs, EDA, visualizaciones. 
+Preparación: limpieza, imputación, codificación, partición train/test, escalado sin fuga hacia test. 
+Modelado: entrenamiento de cinco algoritmos con hiperparámetros fijos documentados en el notebook. 
+Evaluación: métricas en test, matriz de confusión, interpretación. 
+Entrega: CSV procesado, .pkl y script probar_modelo.py. 
+6.3. Planificación 
+Desarrollo secuencial colaborativo en Git/GitHub, centralizado en notebooks/Notebook.ipynb; README con instrucciones de revisión y ejecución local. 
+7. Análisis exploratorio de datos (EDA) y visualización 
+7.1. Análisis descriptivo 
+Se partió de estadísticas descriptivas y del desbalance aproximado 75/25 entre clases. Las magnitudes numéricas varían fuertemente (edad frente a ingresos y saldos en CLP), lo que motiva estandarización para modelos sensibles a escala. 
+7.2. Visualizaciones (notebook) 
+Countplot de RiesgoAlto: visualización del desbalance. 
+Cruces de Peor_Calificacion y reportes en central con RiesgoAlto: patrones de historial moroso. 
+Boxplots de Num_Entidades_Deuda y Ratio_Saldo_Ingreso (en el trabajo se acota visualmente a percentiles altos para reducir el efecto de outliers extremos). 
+KDE de Edad por clase: discriminación moderada por edad sola. 
+KDE de Variacion_Endeudamiento: dinámica reciente del endeudamiento. 
+7.3. Hallazgos e interpretación 
+El riesgo se explica en gran medida por comportamiento en central y por la dinámica reciente del endeudamiento, más que por el nivel de ingreso aislado. La aceleración de deuda a corto plazo y los reportes a 36 meses son señales destacadas para el modelado supervisado. 
+8. Preprocesamiento y calidad de datos 
+8.1. Limpieza de datos 
+Eliminación de la columna No. (identificador de fila sin valor predictivo) y de la columna ScoreRiesgo (variable derivada directamente de la etiqueta objetivo, su inclusión generaba data leakage con F1-Score artificialmente igual a 1,0). Las transformaciones principales son imputación y codificación. 
+8.2. Tratamiento de valores nulos 
+Peor_Calificacion_36M y Peor_Calificacion_12M: fillna(-1) como categoría "sin historial". 
+Tipo_Empleo: valores nulos a la categoría DESCONOCIDO. 
+Otras numéricas: mediana por columna. 
+Otras categóricas de texto: moda. 
+8.3. Transformaciones 
+pd.get_dummies sobre Sexo, Tipo_Empleo y Ciudad_Chile con drop_first=True. train_test_split 80/20 con stratify=y. 
+StandardScaler ajustado solo con train; misma transformación aplicada a test; criterio alineado con la exportación del CSV procesado en el notebook. 
+8.4. Evaluación de calidad 
+Matriz 100 % numérica, sin nulos, 24 features verificadas antes del modelado; sin escalado previo al split que introduzca fuga de información. 
+9. Comparación de técnicas 
+9.1. Modelos evaluados 
+Regresión Logística — LogisticRegression(max_iter=1000, random_state=42) 
+Árbol de Decisión — DecisionTreeClassifier(max_depth=5, random_state=42) 
+Random Forest — RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42) 
+Gradient Boosting — GradientBoostingClassifier(n_estimators=100, max_depth=3, random_state=42) 
+SVM — SVC(random_state=42), configuración por defecto de sklearn 
+9.2. Resultados comparativos (conjunto de prueba; salida del notebook) 
+Modelo                  Accuracy    F1-Score 
+Gradient Boosting       0,9941      0,9883 
+Árbol de Decisión       0,9906      0,9813 
+Regresión Logística     0,9719      0,9423 
+Random Forest           0,9707      0,9383 
+Support Vector Machine  0,9625      0,9223 
+9.3. Justificación de selección 
+1. Implementación y artefacto: el notebook selecciona automáticamente el modelo con mayor F1-Score en test; en la corrida reproducida eso corresponde a Gradient Boosting (F1 = 0,9883, Accuracy = 0,9941). Ese estimador es el que se serializa en models/modelo_final.pkl al ejecutar la celda de guardado. 
+2. Criterio de robustez: la validación cruzada estratificada (5 pliegues) confirma la ventaja de Gradient Boosting (F1 medio = 0,9965 ± 0,0012) frente al Árbol de Decisión (F1 medio = 0,9924 ± 0,0014), por lo que la selección automática y la recomendación del equipo coinciden. 
+3. Criterio de interpretabilidad regulatoria: para contextos donde se exige auditabilidad de coeficientes, la Regresión Logística (F1 ≈ 0,9423) sigue siendo la referencia alternativa recomendada. 
+10. Arquitectura del modelo 
+10.1. Modelo en el artefacto exportado 
+GradientBoostingClassifier (según la lógica "max F1 en test" del notebook y la corrida documentada). 
+10.2. Parámetros e hiperparámetros (Gradient Boosting exportado) 
+random_state=42; n_estimators=100; max_depth=3; resto en valores por defecto de sklearn. 
+10.3. Modelo de referencia para interpretación lineal (alternativa documentada) 
+LogisticRegression con max_iter=1000 y random_state=42; solver por defecto (lbfgs). Ventajas: probabilidades calibradas vía enlace logit, coeficientes interpretables sobre features estandarizadas. 
+11. Validación experimental 
+11.1. División de datos 
+Hold-out estratificado 80/20 (train_test_split con stratify=y) para preservar la proporción de RiesgoAlto: 3.412 clientes en entrenamiento y 854 en prueba. 
+11.2. Validación cruzada 
+StratifiedKFold con k = 5 aplicado sobre el conjunto de entrenamiento. Resultados: 
+Modelo                  F1 Medio    Desv. Estándar 
+Gradient Boosting       0,9965      ±0,0012 
+Árbol de Decisión       0,9924      ±0,0014 
+Regresión Logística     0,9588      ±0,0118 
+Random Forest           0,9270      ±0,0077 
+Support Vector Machine  0,9297      ±0,0102 
+11.3. Estrategia de validación 
+Combinación de hold-out reservado (simula clientes no vistos) con validación cruzada estratificada, análisis de matriz de confusión y reporte por clase; escalador ajustado solo en train. 
+12. Evaluación e interpretabilidad 
+12.1. Métricas de evaluación 
+Para el modelo exportado (Gradient Boosting): Accuracy = 0,9941 y F1 = 0,9883 en test; classification_report detallado: Precisión clase 1 = 0,99, Recall clase 1 = 0,99, F1 clase 1 = 0,99 (213 casos de prueba de alto riesgo). Matriz de confusión disponible en el notebook. Para la línea base logística: F1 ≈ 0,9423 y Accuracy ≈ 0,9719 en el mismo split. 
+12.2. Análisis de resultados 
+Los resultados son coherentes y plausibles tras la corrección del data leakage (eliminación de ScoreRiesgo). Gradient Boosting domina tanto en hold-out como en validación cruzada, lo que respalda su selección. Los valores no son perfectos (F1 < 1,0), lo que indica generalización real en lugar de memorización. La regresión logística sigue siendo válida como alternativa interpretable. 
+12.3. Interpretabilidad 
+Árbol / ensamble basado en árboles: feature_importances_ y reglas de partición. Regresión logística: signo y magnitud de coeficientes post-StandardScaler. 
+Script src/probar_modelo.py: verifica carga del .pkl e imprime coeficientes o primeras importancias según exponga el estimador cargado. 
+13. Sistema y pipeline 
+13.1. Arquitectura del sistema (implementación actual) 
+Flujo local por carpetas: datos crudos → notebook (EDA + preprocesamiento + modelado) → datos procesados y modelo .pkl → script de verificación. 
+13.2. Pipeline del modelo 
+Ingesta CSV → limpieza e imputación → eliminación de ScoreRiesgo → EDA → get_dummies(drop_first) → separación X, y → split estratificado → fit scaler en train → transform → entrenamiento y comparación → elección por F1 (código) → joblib.dump → opcionalmente escritura del CSV procesado. 
+14. Repositorio 
+data/raw/ 
+dataset_crediticio_chile-1-1.csv 
+data/processed/ 
+dataset_crediticio_procesado.csv 
+models/ 
+modelo_final.pkl 
+notebooks/ 
+Notebook.ipynb 
+src/ 
+probar_modelo.py 
+README.md 
+instrucciones y contexto del proyecto 
+Reproducibilidad: dependencias listadas en README (pandas, numpy, matplotlib, seaborn, scikit-learn, joblib); ejecutar el notebook completo en orden; desde la raíz, python src/probar_modelo.py. 
+15. Mejoras y limitaciones 
+15.1. Limitaciones 
+Dataset estático y de laboratorio; no captura choques macro (p. ej. TPM) ni deriva poblacional. 
+Un solo hold-out para la tabla comparativa principal, complementado con validación cruzada de 5 pliegues. 
+SVC sin tuning exhaustivo de kernel y costo. 
+15.2. Propuestas de mejora 
+Búsqueda de hiperparámetros (GridSearchCV / RandomizedSearchCV) sobre Gradient Boosting y Random Forest. 
+class_weight='balanced', SMOTE o umbrales sobre predict_proba según costo FP/FN. 
+SHAP u otras explicaciones locales para modelos no lineales. 
+API de inferencia y pruebas con datos nuevos. 
+Decisión explícita de exportación: archivo .pkl alineado al modelo que la institución adopte por política. 
+16. Conclusiones 
+Se construyó un pipeline completo de riesgo crediticio con EDA orientado a negocio, tratamiento explícito de nulos, codificación y escalado sin fuga al test, y comparación de cinco algoritmos. Se identificó y corrigió un caso de data leakage: la columna ScoreRiesgo era una transformación directa de la variable objetivo RiesgoAlto, lo que producía métricas artificialmente perfectas (F1 = 1,0). Tras su eliminación, los modelos exhiben rendimiento real y plausible. El código actual exporta el modelo de mayor F1 en hold-out: Gradient Boosting (F1 = 0,9883), confirmado también como el más estable en validación cruzada (F1 medio = 0,9965 ± 0,0012). Para contextos que exigen interpretabilidad de coeficientes, la Regresión Logística (F1 ≈ 0,9423) sigue siendo la referencia alternativa recomendada. Los hallazgos de EDA refuerzan el rol del comportamiento en central y de la variación reciente del endeudamiento. El repositorio queda apto para revisión académica y como base para endurecer validación y despliegue. 
+17. Referencias (APA 7) 
+Referencias 
+[1] Bramer, M. (2016). Principles of data mining (3rd ed.). Springer. 
+[2] Chapman, P., Clinton, J., Kerber, R., Khabaza, T., Reinartz, T., Shearer, C., & Wirth, R. (2000). CRISP-DM 1.0: Step-by-step data mining guide. SPSS Inc. 
+[3] Hand, D. J. (2006). Classifier technology and the illusion of progress. Statistical Science, 21(1), 1–14. https://doi.org/10.1214/088342306000000060 
+[4] James, G., Witten, D., Hastie, T., Tibshirani, R., & Taylor, J. (2023). An introduction to statistical learning with applications in Python. Springer. 
+[5] Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., & Duchesnay, E. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12, 2825–2830. 
+[6] Wirth, R., & Hipp, J. (2000). CRISP-DM: Towards a standard process model for data mining. In Proceedings of the 4th International Conference on the Practical Applications of Knowledge Discovery and Data-Mining (PADD 2000) (pp. 29–39). 
