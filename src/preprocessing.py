@@ -27,6 +27,10 @@ def clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
     data = df.copy()
     data = data.drop(columns=[c for c in LEAKAGE_COLUMNS if c in data.columns], errors="ignore")
 
+    # Recalcular escala del Ratio Saldo/Ingreso a nivel mensual
+    if "Saldo_Total_CLP" in data.columns and "Ingreso_CLP" in data.columns:
+        data["Ratio_Saldo_Ingreso"] = data["Saldo_Total_CLP"] / data["Ingreso_CLP"]
+
     for col in ("Peor_Calificacion_36M", "Peor_Calificacion_12M"):
         if col in data.columns:
             data[col] = data[col].fillna(-1)
