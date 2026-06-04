@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreditVision — Resultado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">CV</div>
+        <div>
+          <strong>CreditVision</strong>
+          <span>Mesa de crédito · Chile</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/">Evaluación</a>
+        <a class="active" href="/resultado">Resultado</a>
+        <a href="/docs" target="_blank">API técnica</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div id="estado-api" class="status-pill">—</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="result-page-header">
+        <div>
+          <p class="eyebrow">Dictamen crediticio</p>
+          <h1>Resultado de la evaluación</h1>
+        </div>
+        <a href="/" class="btn-secondary">← Nueva evaluación</a>
+      </header>
+
+      <div id="resultado-sin-datos" class="panel empty-state hidden">
+        <h2>Sin evaluación reciente</h2>
+        <p>Aún no se ha calculado un riesgo crediticio en esta sesión.</p>
+        <a href="/" class="btn-primary inline-btn">Ir a evaluación</a>
+      </div>
+
+      <div id="resultado-contenido" class="result-page-grid hidden">
+        <section class="panel result-hero">
+          <div class="score-ring score-ring-lg">
+            <svg viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="score-value">
+              <strong id="score-pct">0%</strong>
+              <span>probabilidad de riesgo alto</span>
+            </div>
+          </div>
+
+          <div class="verdict">
+            <span class="verdict-badge" id="verdict-badge">—</span>
+            <h2 id="verdict-title">—</h2>
+            <p id="verdict-text">—</p>
+          </div>
+
+          <div class="metrics-row">
+            <div><span>Decisión del modelo</span><strong id="metric-label">—</strong></div>
+            <div><span>Algoritmo</span><strong id="metric-model">—</strong></div>
+            <div><span>Tiempo de respuesta</span><strong id="metric-latency">—</strong></div>
+          </div>
+        </section>
+
+        <section class="panel result-details">
+          <h3>Datos evaluados</h3>
+          <ul id="evaluados" class="detail-list"></ul>
+
+          <h3>Peso de variables en el modelo</h3>
+          <ul id="features" class="detail-list"></ul>
+
+          <p class="result-footer-note">
+            Recomendación orientativa para mesa de crédito. La decisión final debe considerar
+            políticas internas, documentación del cliente y revisión manual cuando corresponda.
+          </p>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="/static/utils.js"></script>
+  <script src="/static/resultado.js"></script>
+</body>
+</html>

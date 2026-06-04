@@ -1,0 +1,381 @@
+{
+  "modelo_seleccionado": "Gradient Boosting",
+  "tipo_modelo": "GradientBoostingClassifier",
+  "feature_names": [
+    "Tiene_Vehiculo",
+    "Edad",
+    "Num_Entidades_Deuda",
+    "Tiene_Tarjeta",
+    "Saldo_Tarjeta_CLP",
+    "Saldo_Total_CLP",
+    "Variacion_Endeudamiento",
+    "Peor_Calificacion_36M",
+    "Peor_Calificacion_12M",
+    "Reportes_Central_36M",
+    "Reportes_Central_12M",
+    "Promedio_Saldo_CLP",
+    "Maximo_Saldo_CLP",
+    "Ingreso_CLP",
+    "Ratio_Saldo_Ingreso",
+    "Sexo_M",
+    "Tipo_Empleo_DESCONOCIDO",
+    "Tipo_Empleo_IND",
+    "Ciudad_Chile_CONCEPCION",
+    "Ciudad_Chile_PUERTO MONTT",
+    "Ciudad_Chile_SANTIAGO",
+    "Ciudad_Chile_TEMUCO",
+    "Ciudad_Chile_VALDIVIA",
+    "Ciudad_Chile_VALPARAISO"
+  ],
+  "metricas_test": {
+    "accuracy": 0.9941451990632318,
+    "f1": 0.9882903981264637
+  },
+  "classification_report": {
+    "0": {
+      "precision": 0.996875,
+      "recall": 0.9953198127925117,
+      "f1-score": 0.9960967993754879,
+      "support": 641.0
+    },
+    "1": {
+      "precision": 0.985981308411215,
+      "recall": 0.9906103286384976,
+      "f1-score": 0.9882903981264637,
+      "support": 213.0
+    },
+    "accuracy": 0.9941451990632318,
+    "macro avg": {
+      "precision": 0.9914281542056075,
+      "recall": 0.9929650707155047,
+      "f1-score": 0.9921935987509758,
+      "support": 854.0
+    },
+    "weighted avg": {
+      "precision": 0.9941579551423756,
+      "recall": 0.9941451990632318,
+      "f1-score": 0.9941497695557663,
+      "support": 854.0
+    }
+  },
+  "comparacion_holdout": {
+    "Regresión Logística": {
+      "accuracy": 0.9718969555035128,
+      "f1": 0.9423076923076923
+    },
+    "Árbol de Decisión": {
+      "accuracy": 0.990632318501171,
+      "f1": 0.9813084112149533
+    },
+    "Random Forest": {
+      "accuracy": 0.9707259953161592,
+      "f1": 0.9382716049382716
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.9941451990632318,
+      "f1": 0.9882903981264637
+    },
+    "Support Vector Machine": {
+      "accuracy": 0.9625292740046838,
+      "f1": 0.9223300970873787
+    }
+  },
+  "validacion_cruzada": {
+    "Regresión Logística": {
+      "f1_mean": 0.9588184824781424,
+      "f1_std": 0.011765212096037089,
+      "fold_scores": [
+        0.9673590504451038,
+        0.9763313609467456,
+        0.9486404833836858,
+        0.9573170731707317,
+        0.9444444444444444
+      ]
+    },
+    "Árbol de Decisión": {
+      "f1_mean": 0.992402665648249,
+      "f1_std": 0.0014284870143631253,
+      "fold_scores": [
+        0.9941860465116279,
+        0.9912536443148688,
+        0.9912023460410557,
+        0.9941176470588236,
+        0.9912536443148688
+      ]
+    },
+    "Random Forest": {
+      "f1_mean": 0.9269563426777369,
+      "f1_std": 0.007737274532834695,
+      "fold_scores": [
+        0.9357798165137615,
+        0.9158878504672897,
+        0.9206349206349206,
+        0.9278996865203761,
+        0.9345794392523364
+      ]
+    },
+    "Gradient Boosting": {
+      "f1_mean": 0.9964774480034218,
+      "f1_std": 0.001179950620483749,
+      "fold_scores": [
+        0.9970845481049563,
+        0.9970674486803519,
+        0.9970674486803519,
+        0.9941176470588236,
+        0.9970501474926253
+      ]
+    },
+    "Support Vector Machine": {
+      "f1_mean": 0.9296712315453499,
+      "f1_std": 0.010199083949410886,
+      "fold_scores": [
+        0.9408284023668639,
+        0.9337349397590361,
+        0.9386503067484663,
+        0.9192546583850931,
+        0.9158878504672897
+      ]
+    }
+  },
+  "tiempos_entrenamiento": {
+    "Regresión Logística": {
+      "fit_seconds": 0.0075,
+      "predict_854_rows_seconds": 0.0007
+    },
+    "Árbol de Decisión": {
+      "fit_seconds": 0.0067,
+      "predict_854_rows_seconds": 0.0006
+    },
+    "Random Forest": {
+      "fit_seconds": 0.167,
+      "predict_854_rows_seconds": 0.007
+    },
+    "Gradient Boosting": {
+      "fit_seconds": 0.5005,
+      "predict_854_rows_seconds": 0.0012
+    },
+    "Support Vector Machine": {
+      "fit_seconds": 0.0548,
+      "predict_854_rows_seconds": 0.0307
+    }
+  },
+  "calidad_datos": {
+    "registros": 4266,
+    "columnas": 19,
+    "nulos_por_columna": {
+      "Sexo": 0,
+      "Tipo_Empleo": 0,
+      "Tiene_Vehiculo": 0,
+      "Edad": 0,
+      "Ciudad_Chile": 0,
+      "Num_Entidades_Deuda": 0,
+      "Tiene_Tarjeta": 0,
+      "Saldo_Tarjeta_CLP": 0,
+      "Saldo_Total_CLP": 0,
+      "Variacion_Endeudamiento": 0,
+      "Peor_Calificacion_36M": 0,
+      "Peor_Calificacion_12M": 0,
+      "Reportes_Central_36M": 0,
+      "Reportes_Central_12M": 0,
+      "Promedio_Saldo_CLP": 0,
+      "Maximo_Saldo_CLP": 0,
+      "Ingreso_CLP": 0,
+      "Ratio_Saldo_Ingreso": 0,
+      "RiesgoAlto": 0
+    },
+    "balance_clases": {
+      "0": 0.7504,
+      "1": 0.2496
+    },
+    "outliers_iqr_por_columna": {
+      "Tiene_Vehiculo": 580,
+      "Edad": 0,
+      "Num_Entidades_Deuda": 309,
+      "Tiene_Tarjeta": 0,
+      "Saldo_Tarjeta_CLP": 564,
+      "Saldo_Total_CLP": 293,
+      "Variacion_Endeudamiento": 219,
+      "Peor_Calificacion_36M": 731,
+      "Peor_Calificacion_12M": 842,
+      "Reportes_Central_36M": 0,
+      "Reportes_Central_12M": 714,
+      "Promedio_Saldo_CLP": 265,
+      "Maximo_Saldo_CLP": 248,
+      "Ingreso_CLP": 249,
+      "Ratio_Saldo_Ingreso": 236,
+      "RiesgoAlto": 1065
+    },
+    "outliers_iqr_total": 6315
+  },
+  "top_features": [
+    {
+      "feature": "Num_Entidades_Deuda",
+      "importance": 0.4600103227054169
+    },
+    {
+      "feature": "Peor_Calificacion_12M",
+      "importance": 0.2922460036481722
+    },
+    {
+      "feature": "Ratio_Saldo_Ingreso",
+      "importance": 0.22833224132220872
+    },
+    {
+      "feature": "Saldo_Total_CLP",
+      "importance": 0.014073762736123693
+    },
+    {
+      "feature": "Variacion_Endeudamiento",
+      "importance": 0.00518358576502338
+    },
+    {
+      "feature": "Reportes_Central_36M",
+      "importance": 9.643352123423992e-05
+    },
+    {
+      "feature": "Saldo_Tarjeta_CLP",
+      "importance": 2.1708181373918806e-05
+    },
+    {
+      "feature": "Ingreso_CLP",
+      "importance": 1.3129503115296612e-05
+    },
+    {
+      "feature": "Promedio_Saldo_CLP",
+      "importance": 1.061797392327071e-05
+    },
+    {
+      "feature": "Tiene_Tarjeta",
+      "importance": 7.346134028235468e-06
+    }
+  ],
+  "variables_predictivas": {
+    "umbral_importancia": 0.001,
+    "variables_relevantes": [
+      {
+        "feature": "Num_Entidades_Deuda",
+        "importance": 0.4600103227054169
+      },
+      {
+        "feature": "Peor_Calificacion_12M",
+        "importance": 0.2922460036481722
+      },
+      {
+        "feature": "Ratio_Saldo_Ingreso",
+        "importance": 0.22833224132220872
+      },
+      {
+        "feature": "Saldo_Total_CLP",
+        "importance": 0.014073762736123693
+      },
+      {
+        "feature": "Variacion_Endeudamiento",
+        "importance": 0.00518358576502338
+      }
+    ],
+    "variables_excluidas": [
+      {
+        "feature": "Reportes_Central_36M",
+        "importance": 9.643352123423992e-05
+      },
+      {
+        "feature": "Saldo_Tarjeta_CLP",
+        "importance": 2.1708181373918806e-05
+      },
+      {
+        "feature": "Ingreso_CLP",
+        "importance": 1.3129503115296612e-05
+      },
+      {
+        "feature": "Promedio_Saldo_CLP",
+        "importance": 1.061797392327071e-05
+      },
+      {
+        "feature": "Tiene_Tarjeta",
+        "importance": 7.346134028235468e-06
+      },
+      {
+        "feature": "Maximo_Saldo_CLP",
+        "importance": 4.5933395341352485e-06
+      },
+      {
+        "feature": "Ciudad_Chile_SANTIAGO",
+        "importance": 2.55169845727177e-07
+      },
+      {
+        "feature": "Reportes_Central_12M",
+        "importance": 3.8321402247433597e-16
+      },
+      {
+        "feature": "Tiene_Vehiculo",
+        "importance": 0.0
+      },
+      {
+        "feature": "Edad",
+        "importance": 0.0
+      },
+      {
+        "feature": "Peor_Calificacion_36M",
+        "importance": 0.0
+      },
+      {
+        "feature": "Sexo_M",
+        "importance": 0.0
+      },
+      {
+        "feature": "Tipo_Empleo_DESCONOCIDO",
+        "importance": 0.0
+      },
+      {
+        "feature": "Tipo_Empleo_IND",
+        "importance": 0.0
+      },
+      {
+        "feature": "Ciudad_Chile_CONCEPCION",
+        "importance": 0.0
+      },
+      {
+        "feature": "Ciudad_Chile_PUERTO MONTT",
+        "importance": 0.0
+      },
+      {
+        "feature": "Ciudad_Chile_TEMUCO",
+        "importance": 0.0
+      },
+      {
+        "feature": "Ciudad_Chile_VALDIVIA",
+        "importance": 0.0
+      },
+      {
+        "feature": "Ciudad_Chile_VALPARAISO",
+        "importance": 0.0
+      }
+    ],
+    "campos_formulario": [
+      "Num_Entidades_Deuda",
+      "Peor_Calificacion_12M",
+      "Ingreso_CLP",
+      "Saldo_Total_CLP",
+      "Variacion_Endeudamiento"
+    ],
+    "nota_ratio": "Ratio_Saldo_Ingreso se calcula como Saldo_Total_CLP / Ingreso_CLP."
+  },
+  "valores_referencia": {
+    "Sexo": "M",
+    "Tipo_Empleo": "IND",
+    "Ciudad_Chile": "SANTIAGO",
+    "Edad": 39,
+    "Tiene_Vehiculo": 0,
+    "Tiene_Tarjeta": 0,
+    "Saldo_Tarjeta_CLP": 0.0,
+    "Peor_Calificacion_36M": 0.0,
+    "Reportes_Central_36M": 30,
+    "Reportes_Central_12M": 12,
+    "Promedio_Saldo_CLP": 2449474.41,
+    "Maximo_Saldo_CLP": 4250000.0
+  },
+  "notas": {
+    "data_leakage": "ScoreRiesgo excluido por derivarse del target.",
+    "criterio_seleccion": "Mayor F1-Score en hold-out estratificado 80/20."
+  }
+}

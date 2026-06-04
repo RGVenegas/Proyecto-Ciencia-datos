@@ -1,0 +1,48 @@
+{
+  "fecha_verificacion": "2026-06-04",
+  "servidor": "http://127.0.0.1:8000",
+  "health": {
+    "status_code": 200,
+    "body": {
+      "status": "ok",
+      "modelo_cargado": true,
+      "modelo": "Gradient Boosting"
+    }
+  },
+  "predict_ejemplo": {
+    "status_code": 200,
+    "payload": "docs/ejemplo_cliente.json",
+    "body_resumen": {
+      "nivel_riesgo": "Alto",
+      "probabilidad_riesgo_alto": 0.8967,
+      "etiqueta": "Riesgo Alto",
+      "modelo": "Gradient Boosting",
+      "latencia_ms": 14.53
+    }
+  },
+  "endpoints_ui": [
+    "GET /",
+    "GET /resultado",
+    "GET /docs"
+  ],
+  "pytest": "4 passed",
+  "flujo_ui": [
+    "Formulario en / con 5 variables de negocio",
+    "POST /predict",
+    "sessionStorage creditvision_result",
+    "Redirección a /resultado con dictamen"
+  ],
+  "comandos": [
+    "python -m src.entrenar_modelo",
+    "uvicorn src.api.main:app --reload --host 127.0.0.1 --port 8000",
+    "python -m pytest tests/test_api.py -q",
+    "curl http://127.0.0.1:8000/health",
+    "curl -X POST http://127.0.0.1:8000/predict -H \"Content-Type: application/json\" -d @docs/ejemplo_cliente.json"
+  ],
+  "capturas_sugeridas": [
+    "Swagger /docs",
+    "Formulario CreditVision en /",
+    "Página de resultado /resultado",
+    "Terminal con curl y pytest"
+  ]
+}

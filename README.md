@@ -1,44 +1,115 @@
 # Predicción de Riesgo Crediticio mediante Machine Learning
 
-Este repositorio contiene el desarrollo de un sistema de alerta temprana basado en Machine Learning para evaluar el riesgo crediticio de clientes en el sector financiero chileno. El proyecto abarca desde la limpieza y transformación de datos (EDA) hasta el entrenamiento, evaluación, selección de algoritmos predictivos y su posterior exportación a un entorno simulado de producción.
+Sistema de alerta temprana para evaluar riesgo crediticio en clientes del sector financiero chileno. Incluye pipeline modular de datos, entrenamiento comparativo de modelos y **despliegue local** mediante API FastAPI + interfaz web.
 
-## ⚙️ Características del Proyecto
+## Características
 
-* **Metodología:** CRISP-DM adaptada para un entorno de investigación y desarrollo.
-* **Preprocesamiento de Datos:** Imputación inteligente de valores nulos, One-Hot Encoding para variables categóricas y estandarización matemática (StandardScaler).
-* **Modelado Predictivo:** Se evaluaron 5 arquitecturas de clasificación (Árboles de Decisión, Random Forest, Gradient Boosting, Support Vector Machine y Regresión Logística).
-* **Selección Final:** Tras comparar los cinco algoritmos en el conjunto de prueba, se exporta el modelo con **mayor F1-Score** (criterio definido en el notebook). En la práctica suele predominar la **Regresión Logística** por interpretabilidad y generalización; el escalado se ajusta solo con datos de entrenamiento para evitar fuga de información hacia el test.
+- Metodología CRISP-DM con fase de despliegue en localhost.
+- Preprocesamiento reproducible fuera del notebook (`src/preprocessing.py`).
+- Comparación de 5 algoritmos con métricas, validación cruzada y tiempos de entrenamiento.
+- API REST funcional con validación de entrada, manejo de errores e interpretabilidad básica.
+- Front-end integrado para evaluar clientes desde el navegador.
 
-## 📂 Estructura del Repositorio
+## Estructura del repositorio
 
-* `/data/raw/`: Contiene el conjunto de datos original e histórico.
-* `/data/processed/`: Contiene el dataset final 100% numérico, codificado y escalado, listo para el consumo del modelo.
-* `/models/`: Contiene el modelo predictivo exportado como `modelo_final.pkl` (mejor F1 en test según el notebook), listo para integrarse en producción mediante APIs.
-* `/notebooks/`: Directorio principal que aloja el archivo `proyecto semana 3 predictivo.ipynb` con todo el flujo analítico documentado.
-* `/src/`: Scripts de ejecución en Python plano (ej. `probar_modelo.py` para testear la carga de `modelo_final.pkl`).
+```text
+data/raw/                 Dataset original
+data/processed/           Dataset procesado exportado
+models/                   modelo_final.pkl, scaler.pkl, metadata.json
+notebooks/Notebook.ipynb  Análisis exploratorio y experimentación
+src/
+  preprocessing.py        Limpieza, codificación y escalado
+  entrenar_modelo.py      Entrenamiento y exportación de artefactos
+  artifacts.py            Carga centralizada del modelo
+  api/main.py             API FastAPI
+frontend/                 Interfaz web
+tests/test_api.py         Pruebas de endpoints
+docs/ARQUITECTURA_DESPLIEGUE.md
+```
 
-## 🚀 Instrucciones de Revisión y Ejecución
+## Requisitos
 
-### Opción 1: Revisión Web (Recomendada)
-Puede visualizar el código, los gráficos de métricas (Matrices de Confusión, Feature Importance) y el análisis analítico directamente haciendo clic en el archivo `notebooks/proyecto semana 3 predictivo.ipynb` en este repositorio de GitHub.
+- Python 3.10+
+- Dependencias mínimas:
 
-### Opción 2: Ejecución Local Completa
+```bash
+pip install -r requirements.txt
+```
 
-**Paso 1:** Clonar el repositorio en su terminal local:
-`git clone https://github.com/RGVenegas/Proyecto-Ciencia-datos.git`
+## Ejecución reproducible (Tarea 2)
 
-**Paso 2:** Instalar las dependencias de ciencia de datos requeridas (requiere entorno Python):
-`pip install pandas numpy matplotlib seaborn scikit-learn joblib`
+### 1. Entrenar y exportar artefactos
 
-**Paso 3:** Ejecución del Flujo de Datos (Notebook)
-Abrir el archivo `notebooks/proyecto semana 3 predictivo.ipynb` (utilizando Jupyter Notebook o la extensión de Jupyter en VS Code) y ejecutar todas las celdas de forma secuencial de principio a fin. Eso actualiza `data/processed/dataset_crediticio_procesado.csv` y genera `models/modelo_final.pkl` (el clasificador con mejor F1 en test). Gracias al uso de rutas relativas integradas con la librería `os`, el código funcionará independientemente del sistema operativo o carpeta de origen.
+Desde la raíz del proyecto:
 
-**Paso 4:** Prueba del Modelo en "Producción"
-Para comprobar que el modelo ha sido exportado correctamente y está listo para recibir nuevos clientes, ejecute el script de prueba desde la raíz del proyecto en su terminal:
-`python src/probar_modelo.py` (carga `models/modelo_final.pkl`).
+```bash
+python -m src.entrenar_modelo
+```
 
-## 👥 Integrantes
+Genera:
 
-* Rodrigo Venegas
-* Diego Carmona
-* Vicente Bustamante
+- `models/modelo_final.pkl`
+- `models/scaler.pkl`
+- `models/metadata.json`
+- `data/processed/dataset_crediticio_procesado.csv`
+
+### 2. Levantar la API en localhost
+
+```bash
+uvicorn src.api.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+### 3. Usar el sistema
+
+| Recurso | URL |
+|---------|-----|
+| Interfaz web | http://127.0.0.1:8000/ |
+| Swagger / OpenAPI | http://127.0.0.1:8000/docs |
+| Health check | http://127.0.0.1:8000/health |
+| Info del modelo | http://127.0.0.1:8000/model/info |
+| Predicción | `POST http://127.0.0.1:8000/predict` |
+
+### 4. Probar endpoints por terminal
+
+```bash
+curl http://127.0.0.1:8000/health
+curl http://127.0.0.1:8000/model/info
+curl -X POST http://127.0.0.1:8000/predict -H "Content-Type: application/json" -d @docs/ejemplo_cliente.json
+python src/probar_modelo.py
+python -m pytest tests/test_api.py -q
+```
+
+## Endpoints principales
+
+### `GET /health`
+
+Verifica que la API y los artefactos estén disponibles.
+
+### `GET /model/info`
+
+Devuelve métricas de test, validación cruzada por fold, tiempos computacionales, reporte de calidad de datos y top variables.
+
+### `POST /predict`
+
+Recibe un perfil de cliente en JSON y responde con:
+
+- clasificación binaria (`riesgo_alto`)
+- probabilidad estimada
+- latencia en milisegundos
+- variables más influyentes del modelo exportado
+
+## Mejoras incorporadas desde la Sumativa 1
+
+Según retroalimentación del profesor:
+
+1. **Calidad de datos ampliada**: outliers por IQR, balance de clases y nulos en `metadata.json`.
+2. **Comparación técnica más profunda**: tiempos de entrenamiento/predicción y scores por fold en CV.
+3. **Interpretabilidad concreta**: top features expuestas en API y front-end.
+4. **Arquitectura menos dependiente del notebook**: módulos Python reutilizables para entrenamiento y despliegue.
+5. **Documentación de ejecución** detallada para reproducibilidad completa.
+
+## Integrantes
+
+- Rodrigo Venegas
+- Diego Carmona
+- Vicente Bustamante
