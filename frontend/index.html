@@ -22,7 +22,6 @@
       <nav class="sidebar-nav">
         <a class="active" href="/">Evaluación</a>
         <a href="/resultado" id="nav-resultado">Resultado</a>
-        <a href="/docs" target="_blank">API técnica</a>
       </nav>
       <div class="sidebar-footer">
         <div id="estado-api" class="status-pill">Conectando...</div>
@@ -31,39 +30,33 @@
 
     <main class="main-content">
       <section class="intro-panel panel">
-        <p class="eyebrow">Sistema de scoring crediticio</p>
-        <h1>Evaluación de riesgo crediticio</h1>
+        <p class="eyebrow">Originación comercial</p>
+        <h1>Evaluación de riesgo del cliente</h1>
         <p class="intro-lead">
-          Esta plataforma estima la probabilidad de que un cliente sea clasificado como
-          <strong>Riesgo Alto</strong> (morosidad o incumplimiento), usando un modelo
-          <strong>Gradient Boosting</strong> entrenado con datos del mercado chileno.
+          Apoyo a la venta en sucursal: indique si el perfil presenta
+          <strong>riesgo alto</strong> antes de ofrecer productos de crédito.
         </p>
 
-        <div class="intro-columns">
-          <div>
-            <h3>¿Qué datos utiliza?</h3>
-            <ul class="intro-bullets">
-              <li><strong>Endeudamiento:</strong> deuda total, instituciones con deuda activa y variación reciente.</li>
-              <li><strong>Central de riesgo:</strong> peor calificación crediticia de los últimos 12 meses.</li>
-              <li><strong>Capacidad de pago:</strong> ingreso mensual y ratio deuda/ingreso (calculado automáticamente).</li>
-            </ul>
+        <div class="intro-highlights">
+          <div class="intro-highlight">
+            <strong>Endeudamiento</strong>
+            <span>Deuda total, bancos con crédito activo y variación reciente</span>
           </div>
-          <div>
-            <h3>¿Por qué solo estas variables?</h3>
-            <p class="intro-note">
-              El análisis de importancia del modelo muestra que variables como edad, sexo,
-              ciudad o tipo de empleo <em>no aportan</em> a la predicción. Por eso el formulario
-              solo solicita las señales financieras relevantes. La variable <code>ScoreRiesgo</code>
-              fue excluida del entrenamiento por generar data leakage.
-            </p>
+          <div class="intro-highlight">
+            <strong>Central de riesgo</strong>
+            <span>Peor calificación de los últimos 12 meses</span>
+          </div>
+          <div class="intro-highlight">
+            <strong>Capacidad de pago</strong>
+            <span>Ingreso mensual y relación deuda/ingreso</span>
           </div>
         </div>
       </section>
 
       <form id="form-cliente" class="panel form-panel form-full">
         <header class="form-header">
-          <h2>Datos del cliente</h2>
-          <p>Complete los campos financieros. Al calcular, se abrirá la pestaña de resultado con el dictamen.</p>
+          <h2>Antecedentes financieros</h2>
+          <p>Complete con la información disponible en atención. El dictamen se muestra al instante.</p>
         </header>
 
         <div class="field-grid cols-2">

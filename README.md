@@ -108,6 +108,18 @@ Según retroalimentación del profesor:
 4. **Arquitectura menos dependiente del notebook**: módulos Python reutilizables para entrenamiento y despliegue.
 5. **Documentación de ejecución** detallada para reproducibilidad completa.
 
+## Despliegue en Vercel (opcional)
+
+El repositorio incluye configuración para publicar la misma API en Vercel:
+
+- `api/index.py` — entrada serverless (Mangum)
+- `vercel.json` — rutas y límites de la función
+- `.vercelignore` — reduce el tamaño del bundle
+
+Pasos detallados: [`docs/DESPLIEGUE_VERCEL.md`](docs/DESPLIEGUE_VERCEL.md)
+
+Resumen: conectar el repo en [vercel.com](https://vercel.com), preset **Other**, sin build command, y desplegar. Cada push a `main` actualiza la URL pública.
+
 ## Integrantes
 
 - Rodrigo Venegas

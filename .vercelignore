@@ -1,0 +1,16 @@
+.cursor/
+.git/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+notebooks/
+data/
+tests/
+scratch/
+*.ipynb
+Informe.txt
+Rubrica_Tarea2.docx
+.env
+.env.*

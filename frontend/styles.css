@@ -115,41 +115,31 @@ body {
   max-width: 900px;
 }
 
-.intro-columns {
+.intro-highlights {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  padding-top: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--border);
 }
 
-.intro-columns h3 {
-  margin: 0 0 0.6rem;
-  font-size: 0.95rem;
+.intro-highlight {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
 }
 
-.intro-bullets {
-  margin: 0;
-  padding-left: 1.1rem;
-  color: var(--muted);
+.intro-highlight strong {
+  display: block;
   font-size: 0.88rem;
-  line-height: 1.6;
+  margin-bottom: 0.25rem;
 }
 
-.intro-bullets li + li { margin-top: 0.4rem; }
-
-.intro-note {
-  margin: 0;
+.intro-highlight span {
   color: var(--muted);
-  font-size: 0.88rem;
-  line-height: 1.6;
-}
-
-.intro-note code {
-  background: #f1f5f9;
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
   font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 .form-full { max-width: 820px; }
@@ -243,13 +233,25 @@ body {
   text-align: right;
 }
 
+.score-ring-wrap {
+  margin: 0 auto 1.25rem;
+  text-align: center;
+}
+
 .score-ring-lg {
   width: 200px;
-  margin: 0 auto 1.25rem;
+  margin: 0 auto;
 }
 
 .score-ring-lg svg { width: 200px; height: 200px; }
 .score-ring-lg .score-value strong { font-size: 2.2rem; }
+
+.score-caption {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
 
 .result-footer-note {
   margin: 1.25rem 0 0;
@@ -456,16 +458,12 @@ input, select {
   display: grid;
   place-content: center;
   text-align: center;
+  padding: 0 1.25rem;
 }
 
 .score-value strong {
   font-size: 1.8rem;
   line-height: 1;
-}
-
-.score-value span {
-  color: var(--muted);
-  font-size: 0.8rem;
 }
 
 .verdict { text-align: center; margin-bottom: 1.25rem; }
@@ -542,7 +540,7 @@ input, select {
 @media (max-width: 1100px) {
   .app-shell { grid-template-columns: 1fr; }
   .sidebar { display: none; }
-  .intro-columns, .result-page-grid { grid-template-columns: 1fr; }
+  .intro-highlights, .result-page-grid { grid-template-columns: 1fr; }
   .result-page-header { flex-direction: column; }
 }
 

@@ -22,7 +22,6 @@
       <nav class="sidebar-nav">
         <a href="/">Evaluación</a>
         <a class="active" href="/resultado">Resultado</a>
-        <a href="/docs" target="_blank">API técnica</a>
       </nav>
       <div class="sidebar-footer">
         <div id="estado-api" class="status-pill">—</div>
@@ -46,15 +45,17 @@
 
       <div id="resultado-contenido" class="result-page-grid hidden">
         <section class="panel result-hero">
-          <div class="score-ring score-ring-lg">
-            <svg viewBox="0 0 120 120">
-              <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
-              <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52"></circle>
-            </svg>
-            <div class="score-value">
-              <strong id="score-pct">0%</strong>
-              <span>probabilidad de riesgo alto</span>
+          <div class="score-ring-wrap">
+            <div class="score-ring score-ring-lg">
+              <svg viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+                <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52"></circle>
+              </svg>
+              <div class="score-value">
+                <strong id="score-pct">0%</strong>
+              </div>
             </div>
+            <p class="score-caption">Probabilidad de riesgo alto</p>
           </div>
 
           <div class="verdict">

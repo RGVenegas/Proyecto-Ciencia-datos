@@ -51,24 +51,19 @@ VARIABLES_EXCLUIDAS_UI = [
 ]
 
 INTRO_SISTEMA = {
-    "titulo": "Evaluación de riesgo crediticio",
+    "titulo": "Evaluación de riesgo del cliente",
     "proposito": (
-        "Esta plataforma estima la probabilidad de que un cliente sea clasificado como "
-        "Riesgo Alto (morosidad/incumplimiento) usando un modelo Gradient Boosting entrenado "
-        "con datos del mercado chileno."
+        "Herramienta de apoyo a la venta en sucursal para identificar perfiles con "
+        "riesgo alto antes de ofrecer productos de crédito."
     ),
     "datos_utilizados": (
-        "El scoring se basa en señales de comportamiento financiero y de central de riesgo: "
-        "nivel de endeudamiento, calificación crediticia reciente, carga de deuda respecto al "
-        "ingreso y dinámica de variación de la deuda."
+        "Endeudamiento (deuda total, instituciones activas y variación reciente), "
+        "central de riesgo (peor calificación 12 meses) y capacidad de pago "
+        "(ingreso y relación deuda/ingreso)."
     ),
     "criterio_variables": (
-        f"Solo se solicitan variables con aporte medible al modelo (importancia ≥ "
-        f"{FEATURE_IMPORTANCE_THRESHOLD:.1%}). Las variables demográficas y de bajo impacto "
-        "no se muestran porque no mejoran la predicción según el análisis de importancia."
+        f"El formulario incluye únicamente antecedentes financieros con impacto en la "
+        f"decisión (importancia ≥ {FEATURE_IMPORTANCE_THRESHOLD:.1%})."
     ),
-    "exclusion_leakage": (
-        "La variable ScoreRiesgo fue excluida del entrenamiento por representar data leakage "
-        "(derivaba directamente de la etiqueta objetivo)."
-    ),
+    "exclusion_leakage": None,
 }
