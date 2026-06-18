@@ -112,8 +112,8 @@ Según retroalimentación del profesor:
 
 El repositorio incluye configuración para publicar la misma API en Vercel:
 
-- `api/index.py` — entrada serverless (Mangum)
-- `vercel.json` — rutas y límites de la función
+- `api/index.py` — entrada serverless (FastAPI ASGI)
+- `vercel.json` — build `@vercel/python` + rutas
 - `.vercelignore` — reduce el tamaño del bundle
 
 Pasos detallados: [`docs/DESPLIEGUE_VERCEL.md`](docs/DESPLIEGUE_VERCEL.md)

@@ -6,8 +6,8 @@ Guía para publicar **CreditVision** (FastAPI + front-end + modelo ML) en Vercel
 
 | Archivo | Función |
 |---------|---------|
-| `api/index.py` | Entrada serverless (Mangum + FastAPI) |
-| `vercel.json` | Reescritura de rutas y límites de la función |
+| `api/index.py` | Entrada serverless (FastAPI ASGI) |
+| `vercel.json` | Build `@vercel/python` y rutas |
 | `.vercelignore` | Excluye notebooks, datos crudos y tests del bundle |
 | `runtime.txt` | Python 3.11 |
 | `requirements.txt` | Incluye `mangum` |
@@ -98,6 +98,7 @@ uvicorn src.api.main:app --reload --host 127.0.0.1 --port 8000
 
 | Error | Solución |
 |-------|----------|
+| `functions doesn't match any Serverless Functions` | Usar `vercel.json` con `builds` + `@vercel/python` (ya incluido) |
 | Build timeout | Revisa que `.vercelignore` excluya `data/` y `notebooks/` |
 | 500 en `/health` | Confirma que `models/` está en GitHub |
 | Module not found `src` | Verifica que `api/index.py` esté en la raíz del repo |
